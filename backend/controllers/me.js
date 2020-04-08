@@ -15,7 +15,6 @@ router.get("/", (req, res) => {
         return res.json(err);
       }
       const { body } = response;
-      console.log(body)
       const { display_name } = body;
       const { images } = body;
 
@@ -48,7 +47,6 @@ router.get("/player/currently-playing", (req, res) => {
         return res.json(err);
       }
       const { body } = response;
-      return res.json(body);
       if (!body.item) {
         return res.json({})
       }
