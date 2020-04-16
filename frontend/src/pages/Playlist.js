@@ -7,9 +7,12 @@ import { Row, Col } from 'react-bootstrap'
 function Playlist() {
   const { playlistId } = useParams()
 
-  useEffect(async () => {
-    const playlist = await fetchPlaylist(playlistId)
-  }, [])
+  useEffect(() => {
+    async function fetchData() {
+      await fetchPlaylist(playlistId)
+    }
+    fetchData()
+  }, [playlistId])
 
   const rendeContent = () => (
     <Row>

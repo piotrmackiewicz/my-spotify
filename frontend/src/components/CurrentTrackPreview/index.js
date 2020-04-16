@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { fetchCurrentlyPlayingTrack } from 'api/Me'
 import Loading from 'components/Loading'
 import Wrapper from './Wrapper'
@@ -24,7 +24,7 @@ function CurrentTrackPreview() {
   const dispatch = useDispatch()
   const currentTrack = useSelector((s) => s.currentTrack)
 
-  const fetchCurrentTrack = async () => {
+  const fetchCurrentTrack = useCallback(async () => {
     const currentTrackResponse = await fetchCurrentlyPlayingTrack()
     const { data } = currentTrackResponse
     setPlaying(currentTrackResponse.data.isPlaying || false)
@@ -34,12 +34,11 @@ function CurrentTrackPreview() {
       setTrackId(id)
     }
     setFetching(false)
-  }
+  }, [dispatch, trackId])
 
   useEffect(() => {
-    setFetching(true)
     fetchCurrentTrack()
-  }, [])
+  }, [fetchCurrentTrack])
 
   useInterval(() => {
     fetchCurrentTrack()

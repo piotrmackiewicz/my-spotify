@@ -27,6 +27,7 @@ function Playlists({ playlists }) {
               <img
                 src={playlist.images[0].url}
                 style={{ width: '100%', height: '200px' }}
+                alt={`Playlist ${playlist.name}`}
               />
               <p style={{ textAlign: 'center', margin: '5px 0' }}>
                 {playlist.name}

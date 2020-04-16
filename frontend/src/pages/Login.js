@@ -9,7 +9,6 @@ import { getToken } from 'api/Authorization'
 import useQuery from 'hooks/useQuery'
 import TokenStorage from 'utils/TokenStorage'
 import { useHistory } from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
 
 const Background = styled.div`
   position: relative;
@@ -28,17 +27,6 @@ const Background = styled.div`
 `
 
 function Login() {
-  // const initLogin = () => {
-  //   login()
-  //     .then(res => {
-  //       console.log(res)
-  //     })
-  //     .catch(err => {
-  //       console.log(Object.keys(err))
-  //       console.log(err.response)
-  //     })
-  // }
-
   let query = useQuery()
   const code = query.get('code')
   const history = useHistory()
