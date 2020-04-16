@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Login from 'pages/Login'
 import Me from 'pages/Me'
 import Dashboard from 'pages/Dashboard'
+import Playlist from 'pages/Playlist'
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
         <Route path="/me">
           <Me />
         </Route>
-        <Route path="/">
-          <Login />
+        <Route path="/playlist/:playlistId">
+          <Playlist />
         </Route>
       </Switch>
     </Router>
