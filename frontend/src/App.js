@@ -19,6 +19,9 @@ function App() {
         <Route path="/playlist/:playlistId">
           <Playlist />
         </Route>
+        <Route path="/">
+          <Login />
+        </Route>
       </Switch>
     </Router>
   )

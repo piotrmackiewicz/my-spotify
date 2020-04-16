@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom'
 
 function Playlists({ playlists }) {
   const [collapsed, setCollapsed] = useState(false)
-  console.log(playlists)
 
   const renderPlaylists = () => (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>

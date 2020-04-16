@@ -6,37 +6,47 @@ import AlbumCover from './AlbumCover'
 import TrackName from './TrackName'
 import ArtistName from './ArtistName'
 import PlayerButtons from './PlayerButtons'
-import { playNextTrack, playPreviousTrack, playPlayback, pausePlayback } from 'api/Me'
+import {
+  playNextTrack,
+  playPreviousTrack,
+  playPlayback,
+  pausePlayback,
+} from 'api/Me'
 import useInterval from 'hooks/useInterval'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentTrack } from 'redux/actions/index'
 
 function CurrentTrackPreview() {
   const [fetching, setFetching] = useState(true)
-  const [track, setTrack] = useState(null)
+  const [trackId, setTrackId] = useState('')
   const [playing, setPlaying] = useState(false)
+
+  const dispatch = useDispatch()
+  const currentTrack = useSelector((s) => s.currentTrack)
 
   const fetchCurrentTrack = async () => {
     const currentTrackResponse = await fetchCurrentlyPlayingTrack()
-    const { data } = currentTrackResponse;
+    const { data } = currentTrackResponse
     setPlaying(currentTrackResponse.data.isPlaying || false)
-    setTrack(currentTrackResponse.data)
+    const { id } = data
+    if (trackId !== id) {
+      dispatch(setCurrentTrack(data))
+      setTrackId(id)
+    }
+    setFetching(false)
   }
 
   useEffect(() => {
+    setFetching(true)
     fetchCurrentTrack()
   }, [])
-
-  useEffect(() => {
-    if (track) {
-      setFetching(false)
-    }
-  }, [track])
 
   useInterval(() => {
     fetchCurrentTrack()
   }, 3000)
 
   const handlePrevClick = () => {
-    playPreviousTrack().then(res => {
+    playPreviousTrack().then((res) => {
       if (res.status === 204) {
         setTimeout(() => {
           fetchCurrentTrack()
@@ -46,7 +56,7 @@ function CurrentTrackPreview() {
   }
 
   const handleNextClick = () => {
-    playNextTrack().then(res => {
+    playNextTrack().then((res) => {
       if (res.status === 204) {
         setTimeout(() => {
           fetchCurrentTrack()
@@ -56,7 +66,7 @@ function CurrentTrackPreview() {
   }
 
   const handlePauseClick = () => {
-    pausePlayback().then(res => {
+    pausePlayback().then((res) => {
       if (res.status === 204) {
         setPlaying(false)
       }
@@ -64,7 +74,7 @@ function CurrentTrackPreview() {
   }
 
   const handlePlayClick = () => {
-    playPlayback().then(res => {
+    playPlayback().then((res) => {
       if (res.status === 204) {
         setPlaying(true)
       }
@@ -75,15 +85,17 @@ function CurrentTrackPreview() {
     return <Loading fullscreen={false} />
   }
 
-  if (track && !track.id) {
+  if (!trackId) {
     return <p>No track is playing at the time</p>
   }
 
   return (
     <Wrapper>
-      <AlbumCover src={track.album.image} />
-      <TrackName>{track.name}</TrackName>
-      <ArtistName>{track.artists.map((a) => a.name).join(', ')}</ArtistName>
+      <AlbumCover src={currentTrack.album.image} />
+      <TrackName>{currentTrack.name}</TrackName>
+      <ArtistName>
+        {currentTrack.artists.map((a) => a.name).join(', ')}
+      </ArtistName>
       <PlayerButtons
         playing={playing}
         onPrevClick={handlePrevClick}
