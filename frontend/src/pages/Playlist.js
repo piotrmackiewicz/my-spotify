@@ -5,7 +5,7 @@ import LeftSideMenuLayout from 'components/layout/LeftSideMenuLayout'
 import { Row, Col } from 'react-bootstrap'
 import Loading from 'components/Loading'
 import Header from 'components/Playlist/Header/index'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentContext, setCurrentQueue } from 'redux/actions/index'
 import { addTrackToQueue, playNextTrack } from 'api/Me'
 
@@ -16,6 +16,7 @@ function Playlist() {
   const [loadingPlaylistPlayback, setLoadingPlaylistPlayback] = useState(false)
 
   const dispatch = useDispatch()
+  const currentContext = useSelector((s) => s.currentContext)
 
   useEffect(() => {
     async function fetchData() {
@@ -47,6 +48,7 @@ function Playlist() {
         description={playlistData.description}
         onPlaylistPlay={handlePlaylistPlay}
         loadingPlaylistPlayback={loadingPlaylistPlayback}
+        isPlaying={playlistData.uri === currentContext}
       />
       <Row>
         <Col>

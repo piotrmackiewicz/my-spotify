@@ -9,6 +9,7 @@ function Header({
   description,
   onPlaylistPlay,
   loadingPlaylistPlayback,
+  isPlaying,
 }) {
   return (
     <Wrapper>
@@ -19,6 +20,7 @@ function Header({
         description={description}
         onPlayClick={onPlaylistPlay}
         loadingPlaylistPlayback={loadingPlaylistPlayback}
+        isPlaying={isPlaying}
       />
     </Wrapper>
   )
