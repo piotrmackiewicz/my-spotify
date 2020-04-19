@@ -3,7 +3,13 @@ import Wrapper from './Wrapper'
 import Background from './Background/index'
 import Info from './Info/index'
 
-function Header({ image, name, description, onPlaylistPlay }) {
+function Header({
+  image,
+  name,
+  description,
+  onPlaylistPlay,
+  loadingPlaylistPlayback,
+}) {
   return (
     <Wrapper>
       <Background image={image} />
@@ -12,6 +18,7 @@ function Header({ image, name, description, onPlaylistPlay }) {
         name={name}
         description={description}
         onPlayClick={onPlaylistPlay}
+        loadingPlaylistPlayback={loadingPlaylistPlayback}
       />
     </Wrapper>
   )

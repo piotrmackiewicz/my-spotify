@@ -13,6 +13,7 @@ function Playlist() {
   const { playlistId } = useParams()
   const [playlistData, setPlaylistData] = useState(null)
   const [fetching, setFetching] = useState(true)
+  const [loadingPlaylistPlayback, setLoadingPlaylistPlayback] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -25,10 +26,13 @@ function Playlist() {
     fetchData()
   }, [playlistId])
 
-  const handlePlaylistPlay = () => {
+  const handlePlaylistPlay = async () => {
     const firstTrack = playlistData.tracks.shift()
     const { uri } = firstTrack.track
-    addTrackToQueue(uri).then(playNextTrack)
+    setLoadingPlaylistPlayback(true)
+    await addTrackToQueue(uri)
+    await playNextTrack()
+    setLoadingPlaylistPlayback(false)
     dispatch(setCurrentQueue(playlistData.tracks.map((t) => t.track)))
     dispatch(setCurrentContext(playlistData.uri))
   }
@@ -42,6 +46,7 @@ function Playlist() {
         name={playlistData.name}
         description={playlistData.description}
         onPlaylistPlay={handlePlaylistPlay}
+        loadingPlaylistPlayback={loadingPlaylistPlayback}
       />
       <Row>
         <Col>
