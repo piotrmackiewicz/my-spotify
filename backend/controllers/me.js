@@ -48,7 +48,7 @@ router.get("/player/currently-playing", (req, res) => {
       }
       const { body } = response;
       if (!body.item) {
-        return res.json({})
+        return res.json({});
       }
       return res.json({
         name: body.item.name,
@@ -69,27 +69,27 @@ router.get("/player/currently-playing", (req, res) => {
 
 router.post("/player/next", (req, res) => {
   superagent
-  .post("https://api.spotify.com/v1/me/player/next")
-  .set("Authorization", `Bearer ${req.accessToken}`)
-  .end((err) => {
-    if (err) {
-      return res.json(err)
-    }
-    return res.sendStatus(204)
-  })
-})
+    .post("https://api.spotify.com/v1/me/player/next")
+    .set("Authorization", `Bearer ${req.accessToken}`)
+    .end((err) => {
+      if (err) {
+        return res.json(err);
+      }
+      return res.sendStatus(204);
+    });
+});
 
 router.post("/player/previous", (req, res) => {
   superagent
-  .post("https://api.spotify.com/v1/me/player/previous")
-  .set("Authorization", `Bearer ${req.accessToken}`)
-  .end((err) => {
-    if (err) {
-      return res.json(err)
-    }
-    return res.sendStatus(204)
-  })
-})
+    .post("https://api.spotify.com/v1/me/player/previous")
+    .set("Authorization", `Bearer ${req.accessToken}`)
+    .end((err) => {
+      if (err) {
+        return res.json(err);
+      }
+      return res.sendStatus(204);
+    });
+});
 
 router.put("/player/pause", (req, res) => {
   superagent
@@ -97,11 +97,11 @@ router.put("/player/pause", (req, res) => {
     .set("Authorization", `Bearer ${req.accessToken}`)
     .end((err) => {
       if (err) {
-        return res.json(err)
+        return res.json(err);
       }
-      return res.sendStatus(204)
-    })
-})
+      return res.sendStatus(204);
+    });
+});
 
 router.put("/player/play", (req, res) => {
   superagent
@@ -109,10 +109,10 @@ router.put("/player/play", (req, res) => {
     .set("Authorization", `Bearer ${req.accessToken}`)
     .end((err) => {
       if (err) {
-        return res.json(err)
+        return res.json(err);
       }
-      return res.sendStatus(204)
-    })
-})
+      return res.sendStatus(204);
+    });
+});
 
 module.exports = router;

@@ -8,6 +8,7 @@ require("dotenv").config();
 const loginController = require("./controllers/login");
 const tokenController = require("./controllers/token");
 const meController = require("./controllers/me");
+const playlistsController = require("./controllers/playlists");
 
 app.use(bodyParser.json());
 
@@ -35,6 +36,7 @@ app.use(cors(corsOptions));
 router.use("/login", loginController);
 router.use("/token", tokenController);
 router.use("/me", meController);
+router.use("/playlists", playlistsController);
 
 app.use("/api", router);
 

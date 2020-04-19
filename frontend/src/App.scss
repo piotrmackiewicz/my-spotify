@@ -11,3 +11,9 @@ body,
 .p-relative {
   position: relative;
 }
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
