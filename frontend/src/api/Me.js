@@ -29,6 +29,10 @@ function playPlayback() {
   return makeRequest('PUT', '/player/play')
 }
 
+function addTrackToQueue(uri) {
+  return makeRequest('POST', '/player/queue', { uri })
+}
+
 function makeRequest(method, path, payload = {}) {
   const axiosRequestConfig = {
     method,
@@ -50,5 +54,6 @@ export {
   playNextTrack,
   playPreviousTrack,
   pausePlayback,
-  playPlayback
+  playPlayback,
+  addTrackToQueue,
 }

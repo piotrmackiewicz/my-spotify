@@ -115,4 +115,16 @@ router.put("/player/play", (req, res) => {
     });
 });
 
+router.post("/player/queue", (req, res) => {
+  superagent
+    .post(`https://api.spotify.com/v1/me/player/queue?uri=${req.body.uri}`)
+    .set("Authorization", `Bearer ${req.accessToken}`)
+    .end((err) => {
+      if (err) {
+        return res.json(err);
+      }
+      return res.sendStatus(204);
+    });
+});
+
 module.exports = router;

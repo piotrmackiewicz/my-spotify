@@ -81,7 +81,7 @@ function CurrentTrackPreview() {
   }
 
   if (fetching) {
-    return <Loading fullscreen={false} />
+    return <Loading fullscreen="false" />
   }
 
   if (!trackId) {

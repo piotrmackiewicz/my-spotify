@@ -7,10 +7,10 @@ import Wrapper from './Wrapper'
 import Image from './Image/index'
 import DetailsWrapper from './DetailsWrapper'
 
-function Info({ image, name, description }) {
+function Info({ image, name, description, onPlayClick }) {
   const renderButtons = () => (
     <div>
-      <Button primary>
+      <Button primary onClick={onPlayClick}>
         <FontAwesomeIcon icon={faPlayCircle} /> Play
       </Button>
     </div>

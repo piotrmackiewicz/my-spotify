@@ -4,7 +4,9 @@ import { Spinner } from 'react-bootstrap'
 
 function Loading({ fullscreen }) {
   return (
-    <CenteredContent fullscreen={fullscreen === undefined ? true : fullscreen}>
+    <CenteredContent
+      fullscreen={fullscreen === undefined ? 'true' : fullscreen}
+    >
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>

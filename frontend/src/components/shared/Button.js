@@ -44,7 +44,7 @@ function Button(props) {
   }
 
   return (
-    <StyledButton variant={variant} size={size}>
+    <StyledButton variant={variant} size={size} {...props}>
       {props.children}
     </StyledButton>
   )

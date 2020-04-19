@@ -41,7 +41,7 @@ function Playlists({ playlists }) {
 
   const renderContent = () => {
     if (!playlists) {
-      return <Loading fullscreen={false} />
+      return <Loading fullscreen="false" />
     }
 
     if (playlists.length < 1) {

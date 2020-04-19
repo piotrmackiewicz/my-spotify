@@ -5,11 +5,16 @@ import LeftSideMenuLayout from 'components/layout/LeftSideMenuLayout'
 import { Row, Col } from 'react-bootstrap'
 import Loading from 'components/Loading'
 import Header from 'components/Playlist/Header/index'
+import { useDispatch } from 'react-redux'
+import { setCurrentContext, setCurrentQueue } from 'redux/actions/index'
+import { addTrackToQueue, playNextTrack } from 'api/Me'
 
 function Playlist() {
   const { playlistId } = useParams()
   const [playlistData, setPlaylistData] = useState(null)
   const [fetching, setFetching] = useState(true)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     async function fetchData() {
@@ -20,6 +25,14 @@ function Playlist() {
     fetchData()
   }, [playlistId])
 
+  const handlePlaylistPlay = () => {
+    const firstTrack = playlistData.tracks.shift()
+    const { uri } = firstTrack.track
+    addTrackToQueue(uri).then(playNextTrack)
+    dispatch(setCurrentQueue(playlistData.tracks.map((t) => t.track)))
+    dispatch(setCurrentContext(playlistData.uri))
+  }
+
   if (fetching) return <Loading fullscreen="false" />
 
   return (
@@ -28,6 +41,7 @@ function Playlist() {
         image={playlistData.image}
         name={playlistData.name}
         description={playlistData.description}
+        onPlaylistPlay={handlePlaylistPlay}
       />
       <Row>
         <Col>
